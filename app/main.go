@@ -3,19 +3,21 @@ package main
 import (
 	"fmt"
 	"os"
+	"rinha/expressions"
+	"rinha/interpreter"
 )
 
 // TODO separar em pacotes
 
 func main() {
 	// TODO ler dos parametros
-	codeFile := readFile(os.Args[1])
+	codeFile := expressions.ReadFile(os.Args[1])
 
 	fmt.Println("Executing:", codeFile.Name)
 	fmt.Println()
 	fmt.Println()
-	expression := parseJsonToNodes(codeFile.Expression)
+	expression := expressions.ParseJsonToNodes(codeFile.Expression)
 
-	interpreter := Interpreter{}
+	interpreter := interpreter.Interpreter{}
 	interpreter.Interpret(expression)
 }

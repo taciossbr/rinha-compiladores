@@ -1,20 +1,23 @@
-package main
+package interpreter
 
-import "fmt"
+import (
+	"fmt"
+	"rinha/expressions"
+)
 
 type Interpreter struct{}
 
-func (i *Interpreter) Interpret(term Term) any {
+func (i *Interpreter) Interpret(term expressions.Term) any {
 	return term.Accept(i)
 }
 
 // visitInteger implements Visitor.
-func (i *Interpreter) visitInteger(t RinInteger) any {
+func (i *Interpreter) VisitInteger(t expressions.RinInteger) any {
 	return t.Value
 }
 
 // visitPrint implements Visitor.
-func (i *Interpreter) visitPrint(t RinPrint) any {
+func (i *Interpreter) VisitPrint(t expressions.RinPrint) any {
 	value := i.Interpret(t.Value)
 	switch v := value.(type) {
 	default:
@@ -29,6 +32,6 @@ func (i *Interpreter) visitPrint(t RinPrint) any {
 }
 
 // visitString implements Visitor.
-func (i *Interpreter) visitString(t RinString) any {
+func (i *Interpreter) VisitString(t expressions.RinString) any {
 	return t.Value
 }

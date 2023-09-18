@@ -1,4 +1,4 @@
-package main
+package expressions
 
 import "strings"
 
@@ -37,9 +37,9 @@ type Term interface {
 
 type Visitor interface {
 	// TODO ver algo melhor que o any, tem templates?
-	visitPrint(t RinPrint) any
-	visitString(t RinString) any
-	visitInteger(t RinInteger) any
+	VisitPrint(t RinPrint) any
+	VisitString(t RinString) any
+	VisitInteger(t RinInteger) any
 }
 
 type RinString struct {
@@ -48,7 +48,7 @@ type RinString struct {
 }
 
 func (t *RinString) Accept(v Visitor) any {
-	return v.visitString(*t)
+	return v.VisitString(*t)
 }
 func (t *RinString) GetKind() TermKind {
 	return t.Meta.Kind
@@ -63,7 +63,7 @@ type RinInteger struct {
 }
 
 func (t *RinInteger) Accept(v Visitor) any {
-	return v.visitInteger(*t)
+	return v.VisitInteger(*t)
 }
 func (t *RinInteger) GetKind() TermKind {
 	return t.Meta.Kind
@@ -78,7 +78,7 @@ type RinPrint struct {
 }
 
 func (t *RinPrint) Accept(v Visitor) any {
-	return v.visitPrint(*t)
+	return v.VisitPrint(*t)
 }
 func (t *RinPrint) GetKind() TermKind {
 	return t.Meta.Kind
@@ -91,7 +91,7 @@ func ParseTermKind(str string) TermKind {
 	return termKindMapper[strings.ToLower(str)]
 }
 
-func parseJsonToNodes(expression map[string]any) Term {
+func ParseJsonToNodes(expression map[string]any) Term {
 	kind := ParseTermKind(expression["kind"].(string))
 	meta := TermMeta{
 		Kind:     kind,
@@ -112,7 +112,7 @@ func parseJsonToNodes(expression map[string]any) Term {
 	case PrintTermKind:
 		return &RinPrint{
 			Meta:  meta,
-			Value: parseJsonToNodes(expression["value"].(map[string]any)),
+			Value: ParseJsonToNodes(expression["value"].(map[string]any)),
 		}
 	}
 	return nil

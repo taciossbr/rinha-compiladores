@@ -1,4 +1,4 @@
-package main
+package expressions
 
 import (
 	"encoding/json"
@@ -13,7 +13,7 @@ type File struct {
 	Location   Location       `json:"location"`
 }
 
-func readFile(filename string) File {
+func ReadFile(filename string) File {
 	jsonFile, err := os.Open(filename)
 	if err != nil {
 		fmt.Println(err)
