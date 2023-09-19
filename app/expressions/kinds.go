@@ -5,15 +5,19 @@ import "strings"
 type TermKind string
 
 const (
+	BinaryTermKind TermKind = "Binary"
+	BoolTermKind   TermKind = "Bool"
+	IntTermKind    TermKind = "Int"
 	PrintTermKind  TermKind = "Print"
 	StringTermKind TermKind = "String"
-	IntTermKind    TermKind = "Int"
 )
 
 var termKindMapper = map[string]TermKind{
-	"print": PrintTermKind,
-	"str":   StringTermKind,
-	"int":   IntTermKind,
+	"binary": BinaryTermKind,
+	"bool":   BoolTermKind,
+	"int":    IntTermKind,
+	"print":  PrintTermKind,
+	"str":    StringTermKind,
 }
 
 func ParseTermKind(str string) TermKind {

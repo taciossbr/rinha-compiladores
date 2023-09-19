@@ -10,15 +10,16 @@
             "request": "launch",
             "mode": "debug",
             "program": "${file}",
-            "args": ["../files/print.json"]
+            "args": ["../myfiles/simple-binary.json"]
         },
-    
+        
         {
             "name": "Launch Package",
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${workspaceRoot}"
+            "program": "${workspaceRoot}/app/main.go",
+            "args": ["../myfiles/simple-binary.json"]
         }
     ]
 }

@@ -8,10 +8,17 @@ func ParseJsonToNodes(expression map[string]any) Term {
 	}
 
 	switch kind {
-	case StringTermKind:
-		return &RinString{
+	case BoolTermKind:
+		return &RinBool{
 			Meta:  meta,
-			Value: expression["value"].(string),
+			Value: expression["value"].(bool),
+		}
+	case BinaryTermKind:
+		return &RinBinary{
+			Meta:      meta,
+			Left:      ParseJsonToNodes(expression["lhs"].(map[string]any)),
+			Operation: ParseOp(expression["op"].(string)),
+			Right:     ParseJsonToNodes(expression["rhs"].(map[string]any)),
 		}
 	case IntTermKind:
 		return &RinInteger{
@@ -22,6 +29,11 @@ func ParseJsonToNodes(expression map[string]any) Term {
 		return &RinPrint{
 			Meta:  meta,
 			Value: ParseJsonToNodes(expression["value"].(map[string]any)),
+		}
+	case StringTermKind:
+		return &RinString{
+			Meta:  meta,
+			Value: expression["value"].(string),
 		}
 	}
 	return nil

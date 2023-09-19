@@ -6,9 +6,11 @@ def main():
         output_dir,
         "Term",
         [
-            ("String",  "Value string"),
+            ("Binary", "Left Term", "Operation RinOp", "Right Term"),
+            ("Bool", "Value bool"),
             ("Integer", "Value int"),
             ("Print",   "Value Term"),
+            ("String",  "Value string"),
         ]
     )
 
