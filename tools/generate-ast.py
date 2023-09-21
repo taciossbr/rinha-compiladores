@@ -9,8 +9,10 @@ def main():
             ("Binary", "Left Term", "Operation RinOp", "Right Term"),
             ("Bool", "Value bool"),
             ("Integer", "Value int"),
-            ("Print",   "Value Term"),
-            ("String",  "Value string"),
+            ("Let", "Name Parameter", "Value Term", "Next Term"),
+            ("Print", "Value Term"),
+            ("String", "Value string"),
+            ("Var", "Text string"),
         ]
     )
 

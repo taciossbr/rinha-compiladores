@@ -19,7 +19,15 @@
             "request": "launch",
             "mode": "auto",
             "program": "${workspaceRoot}/app/main.go",
-            "args": ["../myfiles/simple-binary.json"]
+            "args": ["${input:args}"]
+            // "args": ["../myfiles/simple-binary.json"]
+        }
+    ],
+    "inputs": [
+        {
+            "id": "args",
+            "description": "Path to rinha.json file",
+            "type": "promptString"
         }
     ]
 }

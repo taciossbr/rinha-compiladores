@@ -35,6 +35,18 @@ func ParseJsonToNodes(expression map[string]any) Term {
 			Meta:  meta,
 			Value: expression["value"].(string),
 		}
+	case LetTermKind:
+		return &RinLet{
+			Meta:  meta,
+			Name:  makeParameter(expression["name"].(map[string]any)),
+			Value: ParseJsonToNodes(expression["value"].(map[string]any)),
+			Next:  ParseJsonToNodes(expression["next"].(map[string]any)),
+		}
+	case VarTermKind:
+		return &RinVar{
+			Meta: meta,
+			Text: expression["text"].(string),
+		}
 	}
 	return nil
 }

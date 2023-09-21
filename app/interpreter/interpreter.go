@@ -2,10 +2,22 @@ package interpreter
 
 import (
 	"fmt"
+	"reflect"
 	exp "rinha/expressions"
+	"strconv"
 )
 
-type Interpreter struct{}
+type Interpreter struct {
+	env Environment
+}
+
+func MakeInterpreter() Interpreter {
+	i := Interpreter{
+		env: makeEnvironment(),
+	}
+
+	return i
+}
 
 func (i *Interpreter) Interpret(term exp.Term) any {
 	return term.Accept(i)
@@ -21,8 +33,16 @@ func (i *Interpreter) VisitBinary(t exp.RinBinary) any {
 	right := i.Interpret(t.Right)
 
 	switch t.Operation {
-	// TODO
-	// case exp.AddOp: return left. + right
+	case exp.AddOp:
+		leftType := reflect.TypeOf(left).Kind()
+		rightType := reflect.TypeOf(right).Kind()
+
+		if leftType == reflect.String || rightType == reflect.String {
+			return ensureString(left) + ensureString(right)
+		}
+
+		return left.(int) + right.(int)
+
 	case exp.SubOp:
 		return left.(int) - right.(int)
 	case exp.MulOp:
@@ -31,8 +51,20 @@ func (i *Interpreter) VisitBinary(t exp.RinBinary) any {
 		return left.(int) / right.(int)
 	case exp.RemOp:
 		return left.(int) % right.(int)
-	// case exp.EqOp: return left.(int) == right.(int)
-	// case exp.NeqOp: return left.(int) != right.(int)
+	case exp.EqOp:
+		leftType := reflect.TypeOf(left)
+		rightType := reflect.TypeOf(right)
+		if leftType != rightType {
+			return false
+		}
+		return left == right
+	case exp.NeqOp:
+		leftType := reflect.TypeOf(left)
+		rightType := reflect.TypeOf(right)
+		if leftType != rightType {
+			return true
+		}
+		return left != right
 	case exp.LtOp:
 		return left.(int) < right.(int)
 	case exp.GtOp:
@@ -74,4 +106,24 @@ func (i *Interpreter) VisitPrint(t exp.RinPrint) any {
 // visitString implements Visitor.
 func (i *Interpreter) VisitString(t exp.RinString) any {
 	return t.Value
+}
+
+// VisitLet implements expressions.Visitor.
+func (i *Interpreter) VisitLet(t exp.RinLet) any {
+	value := i.Interpret(t.Value)
+	i.env.Set(t.Name.Text, value)
+	return i.Interpret(t.Next)
+}
+
+// VisitLet implements expressions.Visitor.
+func (i *Interpreter) VisitVar(t exp.RinVar) any {
+	return i.env.Get(t.Text)
+}
+
+func ensureString(value any) string {
+	// TODO talvez estourar um erro quando nao for algo valido
+	if reflect.TypeOf(value).Kind() == reflect.Int {
+		return strconv.Itoa(value.(int))
+	}
+	return value.(string)
 }

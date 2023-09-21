@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"rinha/expressions"
-	"rinha/interpreter"
+	inter "rinha/interpreter"
 )
 
 // TODO separar em pacotes
@@ -18,6 +18,6 @@ func main() {
 	fmt.Println()
 	expression := expressions.ParseJsonToNodes(codeFile.Expression)
 
-	interpreter := interpreter.Interpreter{}
+	interpreter := inter.MakeInterpreter()
 	interpreter.Interpret(expression)
 }

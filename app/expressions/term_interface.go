@@ -12,6 +12,11 @@ type Location struct {
 	Filename string `json:"filename"`
 }
 
+type Parameter struct {
+	Text string
+	Location
+}
+
 type TermMeta struct {
 	Kind     TermKind `json:"kind"`
 	Location Location `json:"location"`
@@ -24,4 +29,11 @@ func makeLocation(data map[string]any) Location {
 		Filename: data["filename"].(string),
 	}
 	return location
+}
+func makeParameter(data map[string]any) Parameter {
+	parameter := Parameter{
+		Text:     data["text"].(string),
+		Location: makeLocation(data["location"].(map[string]any)),
+	}
+	return parameter
 }

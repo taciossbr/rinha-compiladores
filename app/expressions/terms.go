@@ -4,8 +4,10 @@ type Visitor interface {
 	VisitBinary(t RinBinary) any
 	VisitBool(t RinBool) any
 	VisitInteger(t RinInteger) any
+	VisitLet(t RinLet) any
 	VisitPrint(t RinPrint) any
 	VisitString(t RinString) any
+	VisitVar(t RinVar) any
 }
 
 type RinBinary struct {
@@ -61,6 +63,25 @@ func (t *RinInteger) GetLocation() Location {
 	return t.Meta.Location
 }
 
+type RinLet struct {
+	Meta TermMeta
+	Name Parameter
+	Value Term
+	Next Term
+}
+
+func (t *RinLet) Accept(v Visitor) any {
+	return v.VisitLet(*t)
+}
+
+func (t *RinLet) GetKind() TermKind {
+	return t.Meta.Kind
+}
+
+func (t *RinLet) GetLocation() Location {
+	return t.Meta.Location
+}
+
 type RinPrint struct {
 	Meta TermMeta
 	Value Term
@@ -92,6 +113,23 @@ func (t *RinString) GetKind() TermKind {
 }
 
 func (t *RinString) GetLocation() Location {
+	return t.Meta.Location
+}
+
+type RinVar struct {
+	Meta TermMeta
+	Text string
+}
+
+func (t *RinVar) Accept(v Visitor) any {
+	return v.VisitVar(*t)
+}
+
+func (t *RinVar) GetKind() TermKind {
+	return t.Meta.Kind
+}
+
+func (t *RinVar) GetLocation() Location {
 	return t.Meta.Location
 }
 
