@@ -101,7 +101,7 @@ func (i *Interpreter) VisitPrint(t exp.RinPrint) any {
 		fmt.Println(value)
 	}
 
-	return nil
+	return value
 }
 
 // visitString implements Visitor.
