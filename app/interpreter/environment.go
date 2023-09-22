@@ -2,13 +2,13 @@ package interpreter
 
 type Environment struct {
 	environmentMap map[string]any
-	closure        *Environment
+	parent         *Environment
 }
 
 func (e *Environment) Get(name string) any {
 	value := e.environmentMap[name]
-	if value == nil && e.closure != nil {
-		return e.closure.Get(name)
+	if value == nil && e.parent != nil {
+		return e.parent.Get(name)
 	}
 	return value
 }
@@ -20,7 +20,7 @@ func (e *Environment) Set(name string, value any) {
 func makeEnvironment(enc *Environment) *Environment {
 	env := Environment{
 		environmentMap: make(map[string]any),
-		closure:        enc,
+		parent:         enc,
 	}
 	return &env
 }

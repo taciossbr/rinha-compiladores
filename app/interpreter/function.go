@@ -6,17 +6,18 @@ import (
 
 type FunctionEx struct {
 	declaration exp.RinFunction
-	// closure Environment
+	closure     *Environment
 }
 
-func makeFunction(declaration exp.RinFunction) FunctionEx {
+func makeFunction(declaration exp.RinFunction, closure *Environment) FunctionEx {
 	return FunctionEx{
 		declaration: declaration,
+		closure:     closure,
 	}
 }
 
 func (f *FunctionEx) Call(i *Interpreter, args []interface{}) any {
-	enc := makeEnvironment(i.env)
+	enc := makeEnvironment(f.closure)
 	for i, param := range f.declaration.Parameters {
 		enc.Set(param.Text, args[i])
 	}

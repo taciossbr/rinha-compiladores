@@ -133,7 +133,7 @@ func (i *Interpreter) VisitVar(t exp.RinVar) any {
 
 // VisitLet implements expressions.Visitor.
 func (i *Interpreter) VisitFunction(t exp.RinFunction) any {
-	return makeFunction(t)
+	return makeFunction(t, i.env)
 }
 
 // VisitLet implements expressions.Visitor.
