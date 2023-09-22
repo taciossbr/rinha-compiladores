@@ -90,18 +90,28 @@ func (i *Interpreter) VisitInteger(t exp.RinInteger) any {
 // visitPrint implements Visitor.
 func (i *Interpreter) VisitPrint(t exp.RinPrint) any {
 	value := i.Interpret(t.Value)
-	switch v := value.(type) {
-	default:
-		fmt.Printf("unexpected type %T\n", v)
-	case bool:
-		fmt.Printf("%t\n", v)
-	case int:
-		fmt.Printf("%d\n", v)
-	case string:
-		fmt.Println(value)
-	}
+	fmt.Println(format(value))
 
 	return value
+}
+
+func format(value any) string {
+	switch v := value.(type) {
+	default:
+		return fmt.Sprintf("unexpected type %T\n", v)
+	case bool:
+		return fmt.Sprintf("%t", v)
+	case int:
+		return fmt.Sprintf("%d", v)
+	case string:
+		return fmt.Sprint(value)
+	case RinTupleDS:
+		tuple := value.(RinTupleDS)
+		first := format(tuple.First)
+		second := format(tuple.Second)
+
+		return fmt.Sprintf("(%s, %s)\n", first, second)
+	}
 }
 
 // visitString implements Visitor.
