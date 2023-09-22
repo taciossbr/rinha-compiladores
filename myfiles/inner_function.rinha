@@ -1,0 +1,9 @@
+let outer = fn(who) => {
+    let inner = fn() => {
+        print("hello " + who)
+    };
+    inner
+};
+
+let sayHello = outer("Tacio");
+sayHello()

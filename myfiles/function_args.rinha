@@ -1,0 +1,4 @@
+let sum = fn (a, b) => {
+    a + b
+};
+print(sum(8))

@@ -1,0 +1,138 @@
+{
+    "name": "myfiles/error1.rinha",
+    "expression": {
+        "kind": "Let",
+        "name": {
+            "text": "n",
+            "location": {
+                "start": 4,
+                "end": 5,
+                "filename": "myfiles/error1.rinha"
+            }
+        },
+        "value": {
+            "kind": "Int",
+            "value": 4,
+            "location": {
+                "start": 8,
+                "end": 9,
+                "filename": "myfiles/error1.rinha"
+            }
+        },
+        "next": {
+            "kind": "If",
+            "condition": {
+                "kind": "Binary",
+                "lhs": {
+                    "kind": "Var",
+                    "text": "n",
+                    "location": {
+                        "start": 16,
+                        "end": 17,
+                        "filename": "myfiles/error1.rinha"
+                    }
+                },
+                "op": "Eq",
+                "rhs": {
+                    "kind": "Binary",
+                    "lhs": {
+                        "kind": "Int",
+                        "value": 0,
+                        "location": {
+                            "start": 21,
+                            "end": 22,
+                            "filename": "myfiles/error1.rinha"
+                        }
+                    },
+                    "op": "Or",
+                    "rhs": {
+                        "kind": "Binary",
+                        "lhs": {
+                            "kind": "Var",
+                            "text": "n",
+                            "location": {
+                                "start": 26,
+                                "end": 27,
+                                "filename": "myfiles/error1.rinha"
+                            }
+                        },
+                        "op": "Eq",
+                        "rhs": {
+                            "kind": "Int",
+                            "value": 1,
+                            "location": {
+                                "start": 31,
+                                "end": 32,
+                                "filename": "myfiles/error1.rinha"
+                            }
+                        },
+                        "location": {
+                            "start": 26,
+                            "end": 32,
+                            "filename": "myfiles/error1.rinha"
+                        }
+                    },
+                    "location": {
+                        "start": 21,
+                        "end": 32,
+                        "filename": "myfiles/error1.rinha"
+                    }
+                },
+                "location": {
+                    "start": 16,
+                    "end": 32,
+                    "filename": "myfiles/error1.rinha"
+                }
+            },
+            "then": {
+                "kind": "Print",
+                "value": {
+                    "kind": "Int",
+                    "value": 1,
+                    "location": {
+                        "start": 46,
+                        "end": 47,
+                        "filename": "myfiles/error1.rinha"
+                    }
+                },
+                "location": {
+                    "start": 40,
+                    "end": 48,
+                    "filename": "myfiles/error1.rinha"
+                }
+            },
+            "otherwise": {
+                "kind": "Print",
+                "value": {
+                    "kind": "Int",
+                    "value": 2,
+                    "location": {
+                        "start": 68,
+                        "end": 69,
+                        "filename": "myfiles/error1.rinha"
+                    }
+                },
+                "location": {
+                    "start": 62,
+                    "end": 70,
+                    "filename": "myfiles/error1.rinha"
+                }
+            },
+            "location": {
+                "start": 12,
+                "end": 72,
+                "filename": "myfiles/error1.rinha"
+            }
+        },
+        "location": {
+            "start": 0,
+            "end": 72,
+            "filename": "myfiles/error1.rinha"
+        }
+    },
+    "location": {
+        "start": 0,
+        "end": 72,
+        "filename": "myfiles/error1.rinha"
+    }
+}

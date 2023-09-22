@@ -1,0 +1,185 @@
+{
+    "name": "myfiles/simple-function.rinha",
+    "expression": {
+        "kind": "Let",
+        "name": {
+            "text": "c",
+            "location": {
+                "start": 4,
+                "end": 5,
+                "filename": "myfiles/simple-function.rinha"
+            }
+        },
+        "value": {
+            "kind": "Int",
+            "value": 3,
+            "location": {
+                "start": 8,
+                "end": 9,
+                "filename": "myfiles/simple-function.rinha"
+            }
+        },
+        "next": {
+            "kind": "Let",
+            "name": {
+                "text": "sum",
+                "location": {
+                    "start": 15,
+                    "end": 18,
+                    "filename": "myfiles/simple-function.rinha"
+                }
+            },
+            "value": {
+                "kind": "Function",
+                "parameters": [
+                    {
+                        "text": "a",
+                        "location": {
+                            "start": 25,
+                            "end": 26,
+                            "filename": "myfiles/simple-function.rinha"
+                        }
+                    },
+                    {
+                        "text": "b",
+                        "location": {
+                            "start": 28,
+                            "end": 29,
+                            "filename": "myfiles/simple-function.rinha"
+                        }
+                    }
+                ],
+                "value": {
+                    "kind": "Call",
+                    "callee": {
+                        "kind": "Var",
+                        "text": "sum",
+                        "location": {
+                            "start": 57,
+                            "end": 60,
+                            "filename": "myfiles/simple-function.rinha"
+                        }
+                    },
+                    "arguments": [
+                        {
+                            "kind": "Var",
+                            "text": "a",
+                            "location": {
+                                "start": 61,
+                                "end": 62,
+                                "filename": "myfiles/simple-function.rinha"
+                            }
+                        },
+                        {
+                            "kind": "Call",
+                            "callee": {
+                                "kind": "Var",
+                                "text": "sum",
+                                "location": {
+                                    "start": 64,
+                                    "end": 67,
+                                    "filename": "myfiles/simple-function.rinha"
+                                }
+                            },
+                            "arguments": [
+                                {
+                                    "kind": "Var",
+                                    "text": "b",
+                                    "location": {
+                                        "start": 68,
+                                        "end": 69,
+                                        "filename": "myfiles/simple-function.rinha"
+                                    }
+                                },
+                                {
+                                    "kind": "Var",
+                                    "text": "c",
+                                    "location": {
+                                        "start": 71,
+                                        "end": 72,
+                                        "filename": "myfiles/simple-function.rinha"
+                                    }
+                                }
+                            ],
+                            "location": {
+                                "start": 64,
+                                "end": 73,
+                                "filename": "myfiles/simple-function.rinha"
+                            }
+                        }
+                    ],
+                    "location": {
+                        "start": 57,
+                        "end": 74,
+                        "filename": "myfiles/simple-function.rinha"
+                    }
+                },
+                "location": {
+                    "start": 21,
+                    "end": 76,
+                    "filename": "myfiles/simple-function.rinha"
+                }
+            },
+            "next": {
+                "kind": "Print",
+                "value": {
+                    "kind": "Call",
+                    "callee": {
+                        "kind": "Var",
+                        "text": "sum",
+                        "location": {
+                            "start": 85,
+                            "end": 88,
+                            "filename": "myfiles/simple-function.rinha"
+                        }
+                    },
+                    "arguments": [
+                        {
+                            "kind": "Int",
+                            "value": 1,
+                            "location": {
+                                "start": 89,
+                                "end": 90,
+                                "filename": "myfiles/simple-function.rinha"
+                            }
+                        },
+                        {
+                            "kind": "Int",
+                            "value": 2,
+                            "location": {
+                                "start": 91,
+                                "end": 92,
+                                "filename": "myfiles/simple-function.rinha"
+                            }
+                        }
+                    ],
+                    "location": {
+                        "start": 85,
+                        "end": 93,
+                        "filename": "myfiles/simple-function.rinha"
+                    }
+                },
+                "location": {
+                    "start": 79,
+                    "end": 94,
+                    "filename": "myfiles/simple-function.rinha"
+                }
+            },
+            "location": {
+                "start": 11,
+                "end": 94,
+                "filename": "myfiles/simple-function.rinha"
+            }
+        },
+        "location": {
+            "start": 0,
+            "end": 94,
+            "filename": "myfiles/simple-function.rinha"
+        }
+    },
+    "location": {
+        "start": 0,
+        "end": 94,
+        "filename": "myfiles/simple-function.rinha"
+    }
+}

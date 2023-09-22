@@ -1,0 +1,7 @@
+let a = 9;
+let b = 7;
+if (a > b) {
+    print("bananas")
+} else {
+    print("abacaxis")
+}

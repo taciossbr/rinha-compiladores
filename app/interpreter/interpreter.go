@@ -2,25 +2,26 @@ package interpreter
 
 import (
 	"fmt"
+	"os"
 	"reflect"
 	exp "rinha/expressions"
 	"strconv"
 )
 
 type Interpreter struct {
-	env Environment
+	env *Environment
 }
 
 func MakeInterpreter() Interpreter {
 	i := Interpreter{
-		env: makeEnvironment(),
+		env: makeEnvironment(nil),
 	}
 
 	return i
 }
 
-func (i *Interpreter) Interpret(term exp.Term) any {
-	return term.Accept(i)
+func (i *Interpreter) Interpret(t exp.Term) any {
+	return t.Accept(i)
 }
 
 func (*Interpreter) VisitBool(t exp.RinBool) any {
@@ -118,6 +119,71 @@ func (i *Interpreter) VisitLet(t exp.RinLet) any {
 // VisitLet implements expressions.Visitor.
 func (i *Interpreter) VisitVar(t exp.RinVar) any {
 	return i.env.Get(t.Text)
+}
+
+// VisitLet implements expressions.Visitor.
+func (i *Interpreter) VisitFunction(t exp.RinFunction) any {
+	return makeFunction(t)
+}
+
+// VisitLet implements expressions.Visitor.
+func (i *Interpreter) VisitCall(t exp.RinCall) any {
+	function := i.Interpret(t.Callee).(FunctionEx)
+	if len(t.Arguments) != function.Arity() {
+		i.exit("Invalid number of arguments")
+	}
+	var argsValues []interface{}
+	for _, arg := range t.Arguments {
+		value := i.Interpret(arg)
+		argsValues = append(argsValues, value)
+	}
+
+	return function.Call(i, argsValues)
+}
+
+// VisitLet implements expressions.Visitor.
+func (i *Interpreter) VisitIf(t exp.RinIf) any {
+	condition := i.Interpret(t.Condition).(bool)
+	if condition {
+		return i.Interpret(t.Then)
+	} else {
+		return i.Interpret(t.Otherwise)
+	}
+}
+
+// VisitLet implements expressions.Visitor.
+func (i *Interpreter) VisitTuple(t exp.RinTuple) any {
+	first := i.Interpret(t.First)
+	second := i.Interpret(t.Second)
+	tuple := RinTupleDS{
+		First:  first,
+		Second: second,
+	}
+	return tuple
+}
+
+func (i *Interpreter) VisitFirst(t exp.RinFirst) any {
+	tuple := i.Interpret(t.Value).(RinTupleDS)
+	return tuple.First
+}
+
+func (i *Interpreter) VisitSecond(t exp.RinSecond) any {
+	tuple := i.Interpret(t.Value).(RinTupleDS)
+	return tuple.Second
+}
+
+func (i *Interpreter) ExecuteBlock(t exp.Term, enc *Environment) any {
+	oldEnv := i.env
+	i.env = enc
+	ret := i.Interpret(t)
+	i.env = oldEnv
+	return ret
+}
+
+func (i *Interpreter) exit(message string) {
+	fmt.Print("Error: ")
+	fmt.Println(message)
+	os.Exit(2)
 }
 
 func ensureString(value any) string {

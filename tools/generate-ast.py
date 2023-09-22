@@ -8,10 +8,16 @@ def main():
         [
             ("Binary", "Left Term", "Operation RinOp", "Right Term"),
             ("Bool", "Value bool"),
+            ("Call", "Callee Term", "Arguments []Term"),
+            ("First", "Value Term"),
+            ("Function", "Parameters []Parameter", "Value Term"),
+            ("If", "Condition Term", "Then Term", "Otherwise Term"),
             ("Integer", "Value int"),
             ("Let", "Name Parameter", "Value Term", "Next Term"),
             ("Print", "Value Term"),
+            ("Second", "Value Term"),
             ("String", "Value string"),
+            ("Tuple", "First Term", "Second Term"),
             ("Var", "Text string"),
         ]
     )

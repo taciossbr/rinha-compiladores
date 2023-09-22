@@ -47,6 +47,49 @@ func ParseJsonToNodes(expression map[string]any) Term {
 			Meta: meta,
 			Text: expression["text"].(string),
 		}
+	case FunctionTermKind:
+		var parameters []Parameter
+		for _, param := range expression["parameters"].([]interface{}) {
+			parameters = append(parameters, makeParameter(param.(map[string]any)))
+		}
+		return &RinFunction{
+			Meta:       meta,
+			Parameters: parameters,
+			Value:      ParseJsonToNodes(expression["value"].(map[string]any)),
+		}
+	case CallTermKind:
+		var arguments []Term
+		for _, arg := range expression["arguments"].([]interface{}) {
+			arguments = append(arguments, ParseJsonToNodes(arg.(map[string]any)))
+		}
+		return &RinCall{
+			Meta:      meta,
+			Callee:    ParseJsonToNodes(expression["callee"].(map[string]any)),
+			Arguments: arguments,
+		}
+	case IfTermKind:
+		return &RinIf{
+			Meta:      meta,
+			Condition: ParseJsonToNodes(expression["condition"].(map[string]any)),
+			Then:      ParseJsonToNodes(expression["then"].(map[string]any)),
+			Otherwise: ParseJsonToNodes(expression["otherwise"].(map[string]any)),
+		}
+	case TupleTermKind:
+		return &RinTuple{
+			Meta:   meta,
+			First:  ParseJsonToNodes(expression["first"].(map[string]any)),
+			Second: ParseJsonToNodes(expression["second"].(map[string]any)),
+		}
+	case FirstTermKind:
+		return &RinFirst{
+			Meta:  meta,
+			Value: ParseJsonToNodes(expression["value"].(map[string]any)),
+		}
+	case SecondTermKind:
+		return &RinSecond{
+			Meta:  meta,
+			Value: ParseJsonToNodes(expression["value"].(map[string]any)),
+		}
 	}
 	return nil
 }
