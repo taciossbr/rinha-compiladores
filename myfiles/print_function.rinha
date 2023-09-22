@@ -1,0 +1,3 @@
+let f = fn() => {2};
+
+print(f)

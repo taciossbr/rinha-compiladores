@@ -111,6 +111,8 @@ func format(value any) string {
 		second := format(tuple.Second)
 
 		return fmt.Sprintf("(%s, %s)\n", first, second)
+	case FunctionEx:
+		return "<#closure>"
 	}
 }
 
